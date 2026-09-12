@@ -56,6 +56,7 @@ The editable Mermaid source is in [`docs/architecture.mmd`](docs/architecture.mm
 | `tests/` | Standard-library unit tests for policy, cache, dedupe, and agent flow |
 | `benchmarks/results.json` | Observed Kaggle experiment numbers, clearly labelled |
 | `docs/SECURITY.md` | Threat model, secret handling, and hardening checklist |
+| `docs/PORTFOLIO.md` | Résumé bullets and interview talking points |
 
 ## Quick start
 
