@@ -5,6 +5,7 @@ from __future__ import annotations
 import secrets
 from typing import Any
 
+from .backends import BackendPool, BackendUnavailable
 from .config import Settings
 
 
@@ -23,6 +24,7 @@ def create_app(settings: Settings | None = None):
 
     cfg = settings or Settings.from_env()
     app = FastAPI(title="QwenAPI Gateway", version="0.1.0")
+    pool = BackendPool(cfg.qwen_backends, cfg.request_timeout_seconds)
 
     def authorize(authorization: str | None) -> bool:
         return bool(
@@ -52,7 +54,19 @@ def create_app(settings: Settings | None = None):
         payload = await request.json()
         if not isinstance(payload.get("messages"), list):
             raise HTTPException(status_code=422, detail="messages must be a list")
-        # The clean repository intentionally keeps the backend adapter pluggable.
+        if pool.endpoints:
+            try:
+                reply = await pool.chat(payload, authorization=request.headers.get("authorization"))
+            except BackendUnavailable as exc:
+                return JSONResponse(status_code=503, content={"detail": str(exc)})
+            enriched = dict(reply.payload)
+            enriched.setdefault("x_qwen_gateway", {})
+            enriched["x_qwen_gateway"].update(
+                {"backend": reply.backend, "backend_count": len(pool.endpoints)}
+            )
+            return JSONResponse(status_code=reply.status_code, content=enriched)
+
+        # The clean repository remains runnable without a GPU worker.
         return JSONResponse(
             {
                 "id": "demo-not-configured",

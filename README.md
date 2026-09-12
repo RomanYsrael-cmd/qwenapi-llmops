@@ -50,6 +50,7 @@ The editable Mermaid source is in [`docs/architecture.mmd`](docs/architecture.mm
 | `src/qwenapi/policy.py` | High-stakes category and grounding-policy classifier |
 | `src/qwenapi/search.py` | Roman Search adapter, URL canonicalization, cache, dedupe |
 | `src/qwenapi/agent.py` | Model-independent bounded agentic orchestration |
+| `src/qwenapi/backends.py` | Round-robin adapter for local OpenAI-compatible workers |
 | `src/qwenapi/gateway.py` | FastAPI application factory and consistent API auth |
 | `notebooks/qwenapi_demo.ipynb` | Sanitized, offline-friendly 8-section walkthrough |
 | `tests/` | Standard-library unit tests for policy, cache, dedupe, and agent flow |
