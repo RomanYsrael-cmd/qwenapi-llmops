@@ -1,0 +1,28 @@
+{
+  "status": "observed_private_kaggle_trace",
+  "not_a_general_benchmark": true,
+  "hardware": [
+    "2 x NVIDIA Tesla T4 (private Kaggle session)"
+  ],
+  "model": "Qwen3.5 4B quantized GGUF",
+  "context_per_slot": 32768,
+  "generation_slots": 4,
+  "agentic_legal_trace": {
+    "search_calls": 12,
+    "sources_collected": 46,
+    "elapsed_ms": 555825,
+    "elapsed_seconds_rounded": 556,
+    "notes": "Variable Roman Search latency; use for an operational trace, not a throughput claim."
+  },
+  "packaging_validation": {
+    "clean_extraction_recovery_test": "passed in historical notebook version",
+    "dependency_link_check": "passed in historical notebook version"
+  },
+  "next_measurements": [
+    "cold start",
+    "single-turn p50/p95 latency",
+    "agentic p50/p95 latency",
+    "sustained requests per minute",
+    "GPU VRAM under 1/2/4 concurrent generations"
+  ]
+}

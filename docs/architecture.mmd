@@ -1,0 +1,12 @@
+flowchart LR
+  Client[OpenAI-compatible client] --> Auth[FastAPI gateway\nAPI-key middleware]
+  Auth --> Policy[Grounding policy\nclassifier]
+  Policy --> Router[Backend router\nqueue + timeout]
+  Router --> G0[llama.cpp\nGPU 0 / T4]
+  Router --> G1[llama.cpp\nGPU 1 / T4]
+  Policy --> Agent[Agent runner\nbounded tool loop]
+  Agent --> Cache[TTL cache +\ndedupe]
+  Cache --> Search[Roman Search\nprimary sources]
+  Agent --> Router
+  Auth --> Fast[Optional fast Qwen endpoint]
+  Auth --> Image[Optional isolated\nSDXL-Turbo service]
