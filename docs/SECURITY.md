@@ -22,7 +22,9 @@
 ## Supply chain and process isolation
 
 - Pin Python dependencies and pin the exact Cloudflare binary version.
-- Verify downloaded binaries with a published SHA-256 or signature.
+- Verify downloaded binaries with a published SHA-256 or signature. The
+  [`scripts/install_cloudflared.sh`](../scripts/install_cloudflared.sh) helper
+  refuses to run until both a version and checksum are supplied.
 - Extract archives with path-traversal checks; reject absolute paths and `..`.
 - Track child-process PIDs and terminate only processes started by this service.
 - Avoid passing secrets as command-line arguments because process listings can

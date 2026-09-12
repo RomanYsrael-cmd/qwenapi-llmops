@@ -51,10 +51,13 @@ The editable Mermaid source is in [`docs/architecture.mmd`](docs/architecture.mm
 | `src/qwenapi/search.py` | Roman Search adapter, URL canonicalization, cache, dedupe |
 | `src/qwenapi/agent.py` | Model-independent bounded agentic orchestration |
 | `src/qwenapi/backends.py` | Round-robin adapter for local OpenAI-compatible workers |
+| `src/qwenapi/auth.py` | Constant-time Bearer-token validation helper |
+| `src/qwenapi/safe_extract.py` | Archive traversal/link protection |
+| `src/qwenapi/processes.py` | Explicit child-process ownership and shutdown |
 | `src/qwenapi/gateway.py` | FastAPI application factory and consistent API auth |
 | `notebooks/qwenapi_demo.ipynb` | Sanitized, offline-friendly 8-section walkthrough |
 | `tests/` | Standard-library unit tests for policy, cache, dedupe, and agent flow |
-| `benchmarks/results.json` | Observed Kaggle experiment numbers, clearly labelled |
+| `benchmarks/results.json` / `results.md` | Observed Kaggle experiment numbers, clearly labelled |
 | `docs/SECURITY.md` | Threat model, secret handling, and hardening checklist |
 | `docs/PORTFOLIO.md` | Résumé bullets and interview talking points |
 
@@ -101,7 +104,7 @@ The benchmark file records values observed in the private Kaggle run rather
 than invented synthetic performance claims. The standout end-to-end run made
 12 legal-search calls, collected 46 sources, and completed in about 556 seconds.
 Search latency was variable, so these numbers are an operational trace, not a
-general throughput benchmark. See [`benchmarks/results.json`](benchmarks/results.json).
+general throughput benchmark. See [`benchmarks/results.md`](benchmarks/results.md).
 
 ## Security status
 

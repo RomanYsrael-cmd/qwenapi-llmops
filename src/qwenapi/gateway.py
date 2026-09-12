@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-import secrets
 from typing import Any
 
+from .auth import is_authorized
 from .backends import BackendPool, BackendUnavailable
 from .config import Settings
 
@@ -27,11 +27,7 @@ def create_app(settings: Settings | None = None):
     pool = BackendPool(cfg.qwen_backends, cfg.request_timeout_seconds)
 
     def authorize(authorization: str | None) -> bool:
-        return bool(
-            cfg.api_key
-            and authorization
-            and secrets.compare_digest(authorization, f"Bearer {cfg.api_key}")
-        )
+        return is_authorized(authorization, cfg.api_key)
 
     @app.middleware("http")
     async def api_key_middleware(request: Request, call_next):
